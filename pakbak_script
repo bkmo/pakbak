@@ -53,8 +53,8 @@ if [ -n "$keep_number" ]; then
                         sort -rn | \
                         cut -d' ' -f2- | \
                         tail -n +$keep_number)
-    for FILE in ${FILES_TO_DELETE}; do
-        rm -- "${FILE}"
-    done
+    while IFS= read -r FILE || [[ -n $FILE ]]; do
+    rm -- "$FILE"
+done < <(printf '%s' "$FILES_TO_DELETE")
 fi;
 
