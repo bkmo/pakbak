@@ -37,18 +37,18 @@ done
 
 
 # make the backup before cleaning up old ones in case the backup fails
-tar -cJf "$target_folder/pakbak-$(date +%Y-%m-%d-%H%M%S).tar.xz" "/var/lib/pacman/local" || exit $?
+tar --zst -cf "$target_folder/pakbak-$(date +%Y-%m-%d-%H%M%S).tar.zst" "/var/lib/pacman/local" || exit $?
 
 # cleanup old files
 if [ -n "$keep_days" ]; then
-    find -H "$target_folder" -name 'pakbak-*.tar.xz' -type f -mtime +$keep_days -exec rm -v {} +
+    find -H "$target_folder" -name 'pakbak-*.tar.zst' -type f -mtime +$keep_days -exec rm -v {} +
 fi;
 
 # cleanup files if there is too many of them (more than $keep_number)
 if [ -n "$keep_number" ]; then
     # Increment keep_number for correct tail handling
     let keep_number=$keep_number+1
-    FILES_TO_DELETE=$(find -H "$target_folder" -name 'pakbak-*.tar.xz' -type f -print0 | \
+    FILES_TO_DELETE=$(find -H "$target_folder" -name 'pakbak-*.tar.zst' -type f -print0 | \
                         xargs -0 stat --format "%Y %n" | \
                         sort -rn | \
                         cut -d' ' -f2- | \
