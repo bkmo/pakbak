@@ -1,8 +1,8 @@
 # Maintainer: Giuliano Schneider <gs93@gmx.net>
-pkgname=pakbak-git
-_gitname=pakbak
-pkgver=20230619
-pkgrel=2
+pkgname=pakbak-bkmo
+_gitname=pakbak-bkmo
+pkgver=20230623
+pkgrel=1
 pkgdesc="Back up the local pacman database when it changes"
 arch=('any')
 url="https://github.com/bkmo/pakbak"
